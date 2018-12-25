@@ -44,7 +44,8 @@ class ViewController: UIViewController {
     
 
     func nextQuestion() {
-        
+        questionLabel.text = allQuestions.list[questionNum].questionText
+        correctAns = allQuestions.list[questionNum].answer
     }
     
     
@@ -56,12 +57,13 @@ class ViewController: UIViewController {
         }
         questionNum = questionNum + 1
         if questionNum >= allQuestions.list.count {
+            let alert = UIAlertController(title: "Game Over", message: "Game will now reset", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in NSLog("The \"OK\" alert occured.")}))
+            self.present(alert, animated: true, completion: nil)
             print("Game Over")
-            questionLabel.text = "Game Over"
-        } else {
-            questionLabel.text = allQuestions.list[questionNum].questionText
-            correctAns = allQuestions.list[questionNum].answer
+            questionNum = 0
         }
+        nextQuestion()
     }
     
     
